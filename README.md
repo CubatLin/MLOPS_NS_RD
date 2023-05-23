@@ -3,7 +3,7 @@
 
 # 開發日誌
 ### Ethan修正檔案
-* build_mongodb_docker_env.py / build_postgres_docker_env.py
+* build_mongodb_docker_env.py / build_postgres_docker_env.py (裡面引數要寫清楚)
 * 新增log / notebook / doc資料
 * 新增src.controller.process_logger.py 檔案
 * 修正from src.model.docker_command import DockerCommand
