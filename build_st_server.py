@@ -9,7 +9,7 @@ import uvicorn
 import logging
 import json
 from src.controller.logger import LoggingMiddleware
-from src.model.docker_cmd import DockerCmd
+from src.model.docker_command import DockerCommand
 
 # ---------------------- STEP - params -----------------------
 DEPLOY_PORT = 8003
@@ -96,7 +96,7 @@ def st_google_drive(params: STCrawlerRequestBody = STCrawlerRequestBody()):
 if __name__ == "__main__":
     # 執行環境 - 基本上不需要動
     if RUN == "docker":
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=CONTAINER_NAME,
             cmd=f'/bin/bash -c "cd {ROOT_PATH_DOCKER} && {INTERPRETER} {ROUTE_NAME} local"',
             detach=DEPLOY_DETACH,

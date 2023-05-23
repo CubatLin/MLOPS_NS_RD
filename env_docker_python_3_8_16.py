@@ -1,7 +1,7 @@
 import os
 import env_config
 import sys
-from src.model.docker_cmd import DockerCmd
+from src.model.docker_command import DockerCommand
 import subprocess
 
 ## params
@@ -12,22 +12,22 @@ if __name__ == "__main__":
     if RUN == 'images' or RUN == 'all':
         # 建構Python3.8的Docker Image
         # dockerCmd pull Images
-        DockerCmd.dockerPull(tag=env_config.IMAGE_PYTHON_3_8_18_TAG)
+        DockerCommand.dockerPull(tag=env_config.IMAGE_PYTHON_3_8_18_TAG)
 
     if RUN == 'build' or RUN == 'all':
         subprocess.run(f"mkdir -p {env_config.CONTAINER_PYTHON_3_8_18_ROOT_MAP}", shell=True)
 
-        DockerCmd.dockerRun(
+        DockerCommand.dockerRun(
             tag=env_config.IMAGE_PYTHON_3_8_18_TAG,
             name=env_config.CONTAINER_PYTHON_3_8_18_NAME,
             port=env_config.CONTAINER_PYTHON_3_8_18_PORT_LIST,
             volume=f'{env_config.CONTAINER_PYTHON_3_8_18_ROOT_MAP}:{env_config.CONTAINER_PYTHON_3_8_18_ROOT}',
             detach=True, interactive=True, TTY=False
         )
-        DockerCmd.dockerNetworkConnect(name=env_config.CONTAINER_MONGO_POSTGRES_NET, container=env_config.CONTAINER_PYTHON_3_8_18_NAME)
+        DockerCommand.dockerNetworkConnect(name=env_config.CONTAINER_MONGO_POSTGRES_NET, container=env_config.CONTAINER_PYTHON_3_8_18_NAME)
 
         # 建立基礎Folder
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=env_config.CONTAINER_PYTHON_3_8_18_NAME,
             cmd=f'bash -c "mkdir -p {env_config.CONTAINER_PYTHON_3_8_18_FILE_PATH}"',
             detach=False,
@@ -35,7 +35,7 @@ if __name__ == "__main__":
             TTY=False
         )
         # 建立基礎Folder
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=env_config.CONTAINER_PYTHON_3_8_18_NAME,
             cmd=f'bash -c "mkdir -p {env_config.CONTAINER_PYTHON_3_8_18_DOWNLOAD_PATH}"',
             detach=False,
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     if RUN == 'init' or RUN == 'all':
         # 更新apt-get
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=env_config.CONTAINER_PYTHON_3_8_18_NAME,
             cmd="apt-get update",
             detach=False,
@@ -53,7 +53,7 @@ if __name__ == "__main__":
             TTY=False,
         )
         # 更新pip
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=env_config.CONTAINER_PYTHON_3_8_18_NAME,
             cmd='bash -c "pip install --upgrade pip"',
             detach=False,
@@ -65,7 +65,7 @@ if __name__ == "__main__":
         # dockerCmd postgres:15.2 - 基礎安裝
         apt_install_package = ['tzdata', 'git', 'make', 'gcc', 'vim', 'wget', 'zlib1g-dev', '']
         for package in apt_install_package:
-            DockerCmd.dockerExec(
+            DockerCommand.dockerExec(
                 name=env_config.CONTAINER_PYTHON_3_8_18_NAME,
                 cmd=f'apt-get install -y {package}',
                 detach=False,
@@ -80,7 +80,7 @@ if __name__ == "__main__":
             'google-auth-httplib2', 'oauth2client', 'aiofiles', 'Jinja2==3.1.2', 'sqlalchemy'
         ]
         for package in python_install_package:
-            DockerCmd.dockerExec(
+            DockerCommand.dockerExec(
                 name=env_config.CONTAINER_PYTHON_3_8_18_NAME,
                 cmd=f'bash -c "pip install {package}"',
                 detach=False,
@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
     if RUN == 'OTHER' or RUN == 'all':
         # docker 修改時區
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=env_config.CONTAINER_PYTHON_3_8_18_NAME,
             cmd='bash -c "ln -sf /usr/share/zoneinfo/Asia/Taipei /etc/localtime"',
             detach=False,
@@ -100,7 +100,7 @@ if __name__ == "__main__":
 
     if RUN == 'TEMP':
         # 顯示已安裝的python套件
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=env_config.CONTAINER_PYTHON_3_8_18_NAME,
             cmd='bash -c "pip list"',
             detach=False,
@@ -111,7 +111,7 @@ if __name__ == "__main__":
         # 卸載python pkg
         python_install_package = ['oauth2client']
         for package in python_install_package:
-            DockerCmd.dockerExec(
+            DockerCommand.dockerExec(
                 name=env_config.CONTAINER_PYTHON_3_8_18_NAME,
                 cmd=f'bash -c "pip uninstall -y {package}"',
                 detach=False,

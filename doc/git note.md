@@ -18,3 +18,5 @@
 
 
 
+* 切換到branch : `git checkout [branch name]`
+

@@ -1,6 +1,6 @@
 import os
 import env_config
-from src.model.docker_cmd import DockerCmd
+from src.model.docker_command import DockerCommand
 
 
 if __name__ == "__main__":
@@ -10,10 +10,10 @@ if __name__ == "__main__":
     ROOT_PATH_LOCAL = env_config.MLOPS_ROOP_PATH_LOCAL      # LOCAL 執行路徑
 
     # 重啟docker container
-    DockerCmd.dockerRestart(CONTAINER_NAME)
+    DockerCommand.dockerRestart(CONTAINER_NAME)
 
     # 移除container中的舊程式
-    DockerCmd.dockerExec(
+    DockerCommand.dockerExec(
         name=CONTAINER_NAME,
         cmd=f"rm -rf {ROOT_PATH_DOCKER}",
         detach=False,
@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     # 把gitHub上的程式碼clone到docker container中
     GITHUB_URL = env_config.GITHUB_URL
-    DockerCmd.dockerExec(
+    DockerCommand.dockerExec(
         name=CONTAINER_NAME,
         cmd=f"git clone {GITHUB_URL} {ROOT_PATH_DOCKER}",
         detach=False,
@@ -40,7 +40,7 @@ if __name__ == "__main__":
         if rootCheck:
             continue
 
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=CONTAINER_NAME,
             cmd=f"mkdir -p {root.replace(ROOT_PATH_LOCAL, ROOT_PATH_DOCKER)}",
             detach=False,
@@ -50,7 +50,7 @@ if __name__ == "__main__":
 
         for file in files:
             # 把現在執行的程式更新到container中
-            DockerCmd.dockerCopy(
+            DockerCommand.dockerCopy(
                 name=CONTAINER_NAME,
                 filePath=os.path.join(root, file),
                 targetPath=os.path.join(root, file).replace(
