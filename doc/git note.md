@@ -16,7 +16,3 @@
 * 新增branch : `git branch [branch name]`
 * 切換到branch : `git checkout [branch name]`
 
-
-
-* 切換到branch : `git checkout [branch name]`
-
