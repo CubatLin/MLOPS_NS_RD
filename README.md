@@ -2,6 +2,12 @@
 - by 台灣梯度下降第一品牌
 
 # 開發日誌
+### Ethan修正檔案
+* build_mongodb_docker_env.py / build_postgres_docker_env.py
+* 新增log / notebook / doc資料
+* 新增src.controller.process_logger.py 檔案
+* 修正from src.model.docker_command import DockerCommand
+
 ### 待完成項目
 * env_docker_mongodb內參數命名不清
 * src.coltroller.logger 使用狀況不明 / logger看來還未生效

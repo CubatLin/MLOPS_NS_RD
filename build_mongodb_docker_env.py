@@ -7,7 +7,7 @@ import time
 import subprocess
 
 ## params
-# RUN = ['images', 'build_container', 'pkg_init', 'gpt_base', 'python_package', 'OTHER', 'all']
+# RUN = ['pull_images', 'build_container', 'pkg_init', 'gpt_base', 'python_package', 'OTHER', 'all']
 RUN = 'pull_images' if len(sys.argv) == 1 else sys.argv[1]
 mongodb_logger = Logger(path = './log/mongodb.log', 
                         cmd_level='error', file_level='debug')
