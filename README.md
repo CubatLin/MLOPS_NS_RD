@@ -7,6 +7,7 @@
 * 新增log / notebook / doc資料
 * 新增src.controller.process_logger.py 檔案
 * 修正from src.model.docker_command import DockerCommand
+* requirments: ```pip3 freeze > requirments.txt```
 
 ### 待完成項目
 * env_docker_mongodb內參數命名不清
