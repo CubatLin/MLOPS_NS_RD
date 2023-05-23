@@ -1,27 +1,28 @@
+'''這隻程式專用來pull images, build container等創建動作; 在啟動container行為上不在此程式範疇'''
 import os
 import env_config
 import sys
-from src.model.docker_cmd import DockerCmd
+from src.model.docker_command import DockerCommand
 import time
 import subprocess
 
 ## params
-# RUN = ['images', 'build', 'pkg_init', 'gpt_base', 'python_package', 'OTHER', 'all']
-RUN = 'images' if len(sys.argv) == 1 else sys.argv[1]
+# RUN = ['pull_images', 'build_container', 'pkg_init', 'gpt_base', 'python_package', 'OTHER', 'all']
+RUN = 'pull_images' if len(sys.argv) == 1 else sys.argv[1]
 
 
 if __name__ == "__main__":
-    if RUN == 'images' or RUN == 'all':
+    if RUN == 'pull_images' or RUN == 'all':
         # dockerCmd pull Images
-        DockerCmd.dockerPull(tag=env_config.IMAGE_POSTGRES_TAG)
-        DockerCmd.dockerPull(tag=env_config.IMAGE_PGADMIN_TAG)
+        DockerCommand.dockerPull(tag=env_config.IMAGE_POSTGRES_TAG)
+        DockerCommand.dockerPull(tag=env_config.IMAGE_PGADMIN_TAG)
 
-    if RUN == 'build' or RUN == 'all':
+    if RUN == 'build_container' or RUN == 'all':
         subprocess.run(f"mkdir -p {env_config.CONTAINER_POSTGRES_ROOT_MAP}", shell=True)
         subprocess.run(f"mkdir -p {env_config.CONTAINER_PGADMIN_ROOT_MAP}", shell=True)
 
         # dockerCmd run mongodb
-        DockerCmd.dockerRun(
+        DockerCommand.dockerRun(
             tag=env_config.IMAGE_POSTGRES_TAG,
             name=env_config.CONTAINER_POSTGRES_NAME,
             port=env_config.CONTAINER_POSTGRES_PORT_LIST,
@@ -32,7 +33,7 @@ if __name__ == "__main__":
         )
 
         # dockerCmd run dpage/pgadmin4:6.20
-        DockerCmd.dockerRun(
+        DockerCommand.dockerRun(
             tag=env_config.IMAGE_PGADMIN_TAG,
             name=env_config.CONTAINER_PGADMIN_NAME,
             port=env_config.CONTAINER_PGADMIN_PORT_LIST,
@@ -47,7 +48,7 @@ if __name__ == "__main__":
 
     if RUN == 'update' or RUN == 'all':
         # 更新apt-get
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=env_config.CONTAINER_POSTGRES_NAME,
             cmd="apt-get update",
             detach=False,
@@ -55,7 +56,7 @@ if __name__ == "__main__":
             TTY=False,
         )
         # 更新pip
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=env_config.CONTAINER_POSTGRES_NAME,
             cmd='bash -c "pip install --upgrade pip"',
             detach=False,
@@ -68,7 +69,7 @@ if __name__ == "__main__":
             'git', 'make', 'vim', 'libpq-dev', 'gcc', 'python', 'python3', 'python3-pip', 'unzip'
         ]
         for package in apt_install_package:
-            DockerCmd.dockerExec(
+            DockerCommand.dockerExec(
                 name=env_config.CONTAINER_POSTGRES_NAME,
                 cmd=f'bash -c "apt-get install -y {package}"',
                 detach=False,
@@ -83,7 +84,7 @@ if __name__ == "__main__":
             'google-api-python-client', 'google-auth-httplib2', 'google-auth-oauthlib', 'google-auth', 'oauth2client'
         ]
         for package in python_install_package:
-            DockerCmd.dockerExec(
+            DockerCommand.dockerExec(
                 name=env_config.CONTAINER_POSTGRES_NAME,
                 cmd=f'bash -c "pip install {package}"',
                 detach=False,
@@ -92,7 +93,7 @@ if __name__ == "__main__":
             )
     if RUN == 'OTHER':
         # dockerCmd postgres:15.2 - 建立資料庫
-        DockerCmd.dockerExec(
+        DockerCommand.dockerExec(
             name=env_config.CONTAINER_POSTGRES_NAME,
             cmd=f"psql -U postgres -c \'CREATE DATABASE {env_config.CONTAINER_POSTGRES_DB1};\'",
             detach=False, interactive=True, TTY=False

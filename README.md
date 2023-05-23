@@ -1,21 +1,30 @@
 # This is MLOps project created by NS R&Ds.
 - by 台灣梯度下降第一品牌
 
+# 開發日誌
+### 待完成項目
+* env_docker_mongodb內參數命名不清
+* src.coltroller.logger 使用狀況不明 / logger看來還未生效
+* 外層檔案雜亂
+
+## 編修問題紀錄
+| 序號 | 建立時間 | 修訂人員 | 問題內容 |
+| ----------- | ----------- | ----------- | ----------- |
+| 01 | 2023.04.23 | Pat | Project Init |
+| 02 | 2023.05.23 | Ethan | 編修DockerCmd to DockerCommand / env_docker檔名編修&參數修正 |
+
+
 # 環境安裝
 ## 啟動pyenv
 1. 下載 pyenv, pyenv-virtualenv: ```brew install pyenv pyenv-virtualenv```
-
 2. Clone 專案並指定虛擬環境: ```git clone https://github.com/ts01174755/MLOPS.git [Your Project Path]```
-
 3. pyenv 設定
-
 * 切到Project的路徑: ```cd [Your Project Path]``` 
 * 把pyenv的環境參數丟到zshrc檔案裡: ```python3 pyenv_setting.py```
 * 查看一下shell script: ```source ~/.zshrc```
 
 ## 版本控制
 - 使用 python 3.8.16: ```pyenv install 3.8.16```
-
 - 為專案建立虛擬環境: 
 1. 先建立virtualenv python=3.8.16並命名為mlops_nsrd: ```pyenv virtualenv 3.8.16 mlops_nsrd```
 2. 切到專案根目錄: ```cd [Your Project Path]```
@@ -34,8 +43,8 @@
     CONTAINER_MONGO_ENV_DICT = [CONTAINER_MONGO_ENV_DICT]
     ```
 2. 安裝virtual env需要的套件: ```python3 env_local_pkgInstall.py all```
-3. 拉mongodb的docker images(這步記得有個env/.env檔案要加): ```python3 env_docker_mongodb.py all```
-4. 拉postgresql的docker images: ```python3 env_docker_postgres.py all```
+3. 拉mongodb的docker images(這步記得有個env/.env檔案要加): ```python3 build_mongodb_docker_env.py all```
+4. 拉postgresql的docker images: ```python3 build_postgres_docker_env.py all```
 
 # MongoDB
 

@@ -1,0 +1,25 @@
+2023-05-23 14:48:12 DEBUG: Catch an exception.
+Traceback (most recent call last):
+  File "/var/folders/fb/nlgtn5md30183g5dyk7cb3780000gn/T/ipykernel_23378/3640497903.py", line 3, in <module>
+    x = 5 / 0
+ZeroDivisionError: division by zero
+2023-05-23 14:48:12 INFO: Catch an exception.
+Traceback (most recent call last):
+  File "/var/folders/fb/nlgtn5md30183g5dyk7cb3780000gn/T/ipykernel_23378/3640497903.py", line 3, in <module>
+    x = 5 / 0
+ZeroDivisionError: division by zero
+2023-05-23 14:48:12 WARNING: Catch an exception.
+Traceback (most recent call last):
+  File "/var/folders/fb/nlgtn5md30183g5dyk7cb3780000gn/T/ipykernel_23378/3640497903.py", line 3, in <module>
+    x = 5 / 0
+ZeroDivisionError: division by zero
+2023-05-23 14:48:12 ERROR: Catch an exception.
+Traceback (most recent call last):
+  File "/var/folders/fb/nlgtn5md30183g5dyk7cb3780000gn/T/ipykernel_23378/3640497903.py", line 3, in <module>
+    x = 5 / 0
+ZeroDivisionError: division by zero
+2023-05-23 14:48:12 CRITICAL: Catch an exception.
+Traceback (most recent call last):
+  File "/var/folders/fb/nlgtn5md30183g5dyk7cb3780000gn/T/ipykernel_23378/3640497903.py", line 3, in <module>
+    x = 5 / 0
+ZeroDivisionError: division by zero

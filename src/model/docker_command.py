@@ -183,7 +183,7 @@ class dockerNetwork:
 
 
 # 將docker的操作進行封裝
-class DockerCmd(DockerFileSystem, DockerContainer, DockerImage, dockerNetwork):
+class DockerCommand(DockerFileSystem, DockerContainer, DockerImage, dockerNetwork):
     @classmethod
     def dockerLogin(cls, username, password):  # 登入docker hub
         print(f"docker login -u {username} -p {password}")
